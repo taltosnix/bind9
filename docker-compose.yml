@@ -6,9 +6,20 @@ services:
       - 53:53
     volumes:
       - conf:/etc/bind
+    networks:
+      br02:
+        ipv4_address: 10.1.0.11 
   asir_cliente:
-    image: ubuntu
+    image: diegosierra/cliente_ubuntu:nettools
     stdin_open: true  # docker run -i
     tty: true         # docker run -t
+    networks:
+      br02:
+        ipv4_address: 10.1.0.10 
+    dns:
+      - 10.1.0.11
 volumes:
   conf:
+networks:
+  br02:
+    external: true 
